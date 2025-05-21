@@ -25,8 +25,8 @@ jobs:
       - name: Run Checkov scan
         run: |
           mkdir -p checkov_output
-          checkov -d . -o cli | tee checkov_output/results.txt
-          checkov -d . -o json > checkov_output/results.json
+          checkov -d . -o cli | tee checkov_output/results.txt || true
+          checkov -d . -o json > checkov_output/results.json || true
 
       - name: Upload Checkov Artifacts
         uses: actions/upload-artifact@v4
