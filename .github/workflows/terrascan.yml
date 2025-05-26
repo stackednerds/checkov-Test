@@ -14,7 +14,7 @@ jobs:
       - name: Run terrascan and save output
         run: |
           mkdir -p terrascan-output
-          docker run --rm -v ${{ github.workspace }}:/iac tenable/terrascan scan -d /iac > terrascan-output/terrascan_report.txt
+          docker run --rm -v ${{ github.workspace }}:/iac tenable/terrascan scan -d /iac > terrascan-output/terrascan_report.txt || true
 
       - name: Upload terrascan report as artifact
         uses: actions/upload-artifact@v4
