@@ -1,4 +1,4 @@
-name: Trivy IaC Scan
+name: Trivy IaC Scan 
 
 on:
   workflow_dispatch:
@@ -12,7 +12,7 @@ jobs:
 
       - name: Run Trivy IaC Scan with Docker
         run: |
-          docker run --rm -v ${{ github.workspace }}:/repo aquasec/trivy:latest iac --scan-type config --format table -o /repo/trivy-iac-report.txt /repo
+          docker run --rm -v ${{ github.workspace }}:/repo aquasec/trivy:latest iac --format table -o /repo/trivy-iac-report.txt /repo
 
       - name: Upload Trivy Table Report as Artifact
         uses: actions/upload-artifact@v4
