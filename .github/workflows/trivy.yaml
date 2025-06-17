@@ -10,14 +10,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install Trivy
-        uses: aquasecurity/trivy-action@v0.19.0
-        with:
-          install-only: true
-
-      - name: Run Trivy IaC Scan (table report)
+      - name: Run Trivy IaC Scan with Docker
         run: |
-          trivy iac --scan-type config --format table -o trivy-iac-report.txt .
+          docker run --rm -v ${{ github.workspace }}:/repo aquasec/trivy:latest iac --scan-type config --format table -o /repo/trivy-iac-report.txt /repo
 
       - name: Upload Trivy Table Report as Artifact
         uses: actions/upload-artifact@v4
