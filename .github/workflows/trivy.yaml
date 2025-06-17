@@ -1,0 +1,26 @@
+name: Trivy IaC Scan
+
+on:
+  workflow_dispatch:
+
+jobs:
+  trivy-iac-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Trivy
+        uses: aquasecurity/trivy-action@v0.16.1
+        with:
+          install-only: true
+
+      - name: Run Trivy IaC Scan (table report)
+        run: |
+          trivy iac --scan-type config --format table -o trivy-iac-report.txt .
+
+      - name: Upload Trivy Table Report as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-iac-table-report
+          path: trivy-iac-report.txt
